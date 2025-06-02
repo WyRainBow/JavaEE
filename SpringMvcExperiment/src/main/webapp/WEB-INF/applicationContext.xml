@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"  <!-- AOP might not be strictly needed for this lab but often included -->
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"    <!-- TX might not be strictly needed for this lab but often included -->
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- Enables Spring MVC annotation-driven features -->
+    <mvc:annotation-driven />
+
+    <!-- Configures a handler for serving static resources by forwarding to the Servlet container's default Servlet -->
+    <mvc:default-servlet-handler />
+
+    <!-- Enables detection of annotations like @Component, @Repository, @Service, @Controller -->
+    <context:annotation-config />
+
+    <!-- Scans the specified package for Spring components (e.g., Controllers) -->
+    <context:component-scan base-package="com.experimental.controller"/> <!-- Changed base-package to com.experimental.controller -->
+
+    <!-- ViewResolver configuration -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+</beans> 
