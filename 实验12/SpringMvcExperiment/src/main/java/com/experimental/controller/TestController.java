@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Arrays;
 
 @Controller
 public class TestController {
@@ -111,34 +112,19 @@ public class TestController {
 
     // 用于演示自定义数据类型绑定 (PhoneNumber) 的方法
     @RequestMapping(value = "/customType.form")
-    public String customTypeBinding(@RequestParam("phone") PhoneNumber phoneNumber, Model model) {
-        model.addAttribute("pageTitle", "自定义数据类型绑定演示");
-        model.addAttribute("boundPhoneNumber", phoneNumber);
-
-        System.out.println("控制器: 处理 /customType.form. 绑定的电话号码: " + phoneNumber);
-        
+    public String customTypeBinding(@RequestParam("phoneNumber") PhoneNumber phoneNumber, Model model) {
+        model.addAttribute("phoneNumber", phoneNumber);
         return "customTypeView";
     }
 
     // 用于演示数组和列表绑定的方法
-    @RequestMapping(value = "/collectionData.form")
-    public String collectionBinding(@RequestParam(value = "names", required = false) List<String> nameList,
-                                  @RequestParam(value = "ids", required = false) Integer[] idArray,
-                                  Model model) {
-        
-        model.addAttribute("pageTitle", "数组/集合绑定演示");
-        model.addAttribute("nameList", nameList);
-        model.addAttribute("idArray", idArray);
-
-        System.out.println("控制器: 处理 /collectionData.form.");
-        if (nameList != null) {
-            System.out.println("  绑定的名称列表: " + nameList);
-        }
-        if (idArray != null) {
-            System.out.println("  绑定的ID数组: " + java.util.Arrays.toString(idArray));
-        }
-        
-        return "collectionView";
+    @RequestMapping("/collectionBinding.form")
+    public String collectionBinding(@RequestParam("names") List<String> names,
+                                    @RequestParam("ids") Integer[] ids,
+                                    Model model) {
+        model.addAttribute("nameList", names);
+        model.addAttribute("idArray", Arrays.toString(ids)); // Arrays.toString for better display
+        return "collectionBindingView";
     }
 
     // 用于演示JSON数据绑定 (@RequestBody 和 @ResponseBody) 的方法
